@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 export default function Addtask({ onAddtask }) {
@@ -6,25 +7,27 @@ export default function Addtask({ onAddtask }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (title === "") return;
+    if (!title.trim()) return;
 
-    onAddtask(title);
+    onAddtask(title.trim());
     setTitle("");
   };
-  
+
   return (
-    <form onSubmit={handleSubmit} className="mb-[32px] flex gap-[12px]">
+    <form onSubmit={handleSubmit} className="mb-8 flex gap-3">
+
       <input
         type="text"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
         placeholder="Ajouter une tâche..."
-        className="h-[54px] flex-1 rounded-[8px] border border-border bg-surface-hover px-[16px] text-[16px] text-text-primary outline-none placeholder:text-text-secondary focus:border-primary"
+        className="h-14 min-w-0 flex-1 rounded-lg border border-border bg-surface-hover px-4 text-base text-text-primary outline-none placeholder:text-text-secondary focus:border-primary"
       />
 
-      <button className="h-[54px] rounded-full bg-primary px-[32px] text-[14px] font-bold text-black transition-colors hover:bg-dark-green">
+      <button type="submit" className="h-14 rounded-full bg-primary px-8 text-sm font-bold text-black transition-colors hover:bg-dark-green">
         Ajouter
       </button>
+
     </form>
   );
 }

@@ -1,96 +1,30 @@
+
 @import "tailwindcss";
 
-/* ========================================
-   DESIGN SYSTEM — TODO LIST
-   Inspiré du DESIGN.md Spotify
-======================================== */
-
 @theme {
-  /* COULEURS */
+  /* COULEURS PRINCIPALES */
+  --color-primary: #1db954;
+  --color-dark-green: #169c46;
 
+  /* FONDS */
   --color-background: #121212;
   --color-surface: #181818;
-  --color-surface-hover: #1f1f1f;
-  --color-card: #252525;
+  --color-surface-hover: #282828;
+  --color-border: #383838;
 
-  --color-primary: #1ed760;
-
+  /* TEXTES */
   --color-text-primary: #ffffff;
   --color-text-secondary: #b3b3b3;
-  --color-text-light: #cbcbcb;
 
-  --color-border: #4d4d4d;
-
+  /* COULEURS SÉMANTIQUES */
   --color-negative: #f3727f;
   --color-warning: #ffa42b;
-  --color-info: #539df5;
-
-  --color-dark-green: #098236;
-
-
-  /* TYPOGRAPHIE */
-
-  --font-sans:
-    "Helvetica Neue",
-    Helvetica,
-    Arial,
-    sans-serif;
-
-
-  /* BORDER RADIUS */
-
-  --radius-card: 8px;
-  --radius-button: 9999px;
-
-
-  /* SHADOWS */
-
-  --shadow-card: 0 8px 8px rgba(0, 0, 0, 0.3);
-  --shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --color-announcement: #539df5;
 }
 
-
-/* ========================================
-   BASE
-======================================== */
-
-@layer base {
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    background-color: #121212;
-  }
-
-  body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
-
-    background-color: #121212;
-    color: #ffffff;
-
-    font-family:
-      "Helvetica Neue",
-      Helvetica,
-      Arial,
-      sans-serif;
-
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  button,
-  input,
-  textarea,
-  select {
-    font: inherit;
-  }
-
-  button {
-    cursor: pointer;
-  }
-
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: Arial, Helvetica, sans-serif;
 }
