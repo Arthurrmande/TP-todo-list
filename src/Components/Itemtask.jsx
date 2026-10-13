@@ -1,14 +1,10 @@
 
 import { useState } from "react";
+import { motion } from "motion/react";
 
-export default function Itemtask({ task, onEditTask, onDeleteTask, onChangeStatus }) {
-  // Savoir si on modifie
+export default function Itemtask({ task, index, animationMode, onEditTask, onDeleteTask, onChangeStatus }) {
   const [isEditing, setIsEditing] = useState(false);
-
-  // Mémoriser le nouveau titre
   const [newTitle, setNewTitle] = useState(task.title);
-
-  // Mémoriser le nouveau statut
   const [newStatus, setNewStatus] = useState(task.status);
 
   // VALIDER la modification
@@ -27,8 +23,45 @@ export default function Itemtask({ task, onEditTask, onDeleteTask, onChangeStatu
     setIsEditing(false);
   };
 
+  // DÉMARRER la modification
+  const startEdit = () => {
+    setNewTitle(task.title);
+    setNewStatus(task.status);
+    setIsEditing(true);
+  };
+
+  // ANIMATIONS
+  const taskAnimation = {
+    intro: {
+      initial: { opacity: 0, y: 30 },
+      transition: { duration: 0.5, delay: 1.2 + index * 0.2, ease: "easeOut" },
+    },
+    add: {
+      initial: { opacity: 0, y: 20, scale: 0.97 },
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    delete: {
+      initial: false,
+      transition: { duration: 0.25 },
+    },
+    filter: {
+      initial: false,
+      transition: { duration: 0 },
+    },
+  };
+
+  const animation = taskAnimation[animationMode];
+
   return (
-    <li className="flex min-h-24 items-center gap-3 rounded-lg bg-surface px-6 text-base">
+    <motion.li
+      initial={animation.initial}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={animationMode === "filter" ? undefined : { opacity: 0, x: -80, transition: { duration: 0.25 } }}
+      transition={animation.transition}
+      layout={animationMode !== "filter"}
+      whileHover={{ backgroundColor: "#202020" }}
+      className="flex min-h-24 items-center gap-3 rounded-lg bg-surface px-6 text-base"
+    >
 
       {/* TITRE */}
       {isEditing ? (
@@ -64,24 +97,24 @@ export default function Itemtask({ task, onEditTask, onDeleteTask, onChangeStatu
       {/* BOUTONS */}
       {isEditing ? (
         <>
-          <button onClick={handleEdit} className="rounded-full bg-primary px-5 py-3 font-bold text-black">
+          <motion.button onClick={handleEdit} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="rounded-full bg-primary px-5 py-3 font-bold text-black">
             Valider
-          </button>
+          </motion.button>
 
-          <button onClick={handleCancel} className="rounded-full bg-surface-hover px-5 py-3 font-bold">
+          <motion.button onClick={handleCancel} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="rounded-full bg-surface-hover px-5 py-3 font-bold">
             Annuler
-          </button>
+          </motion.button>
         </>
       ) : (
-        <button onClick={() => { setNewTitle(task.title); setNewStatus(task.status); setIsEditing(true); }} className="rounded-full bg-surface-hover px-5 py-3 font-bold">
+        <motion.button onClick={startEdit} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="rounded-full bg-surface-hover px-5 py-3 font-bold">
           Modifier
-        </button>
+        </motion.button>
       )}
 
-      <button onClick={() => onDeleteTask(task.id)} className="px-3 py-3 text-text-secondary hover:text-negative">
+      <motion.button onClick={() => onDeleteTask(task.id)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="px-3 py-3 text-text-secondary hover:text-negative">
         Supprimer
-      </button>
+      </motion.button>
 
-    </li>
+    </motion.li>
   );
 }
